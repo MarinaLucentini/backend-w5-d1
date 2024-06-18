@@ -41,6 +41,15 @@ public class BeansConf {
         return toppingMargherita;
     }
     @Bean
+    public String nomePizza(){
+
+        return "Pizza margherita";
+    }
+    @Bean
+    public double pricePizza(){
+        return 4.59;
+    }
+    @Bean
     @Primary
     public Pizza pizzaMargherita (){
         return new Pizza("Pizza margherita", 4.99, 1104,toppingMargherita());
@@ -48,9 +57,9 @@ public class BeansConf {
     @Bean
     public Pizza pizzaHawaiana (){
         List<Topping> toppings = new ArrayList<>();
-      toppings.addAll(toppingMargherita());
-      toppings.add(getToppingPineaple());
-      toppings.add(getToppingHam());
+        toppings.addAll(toppingMargherita());
+        toppings.add(getToppingPineaple());
+        toppings.add(getToppingHam());
         return new Pizza("Pizza Hawaiana", pizzaMargherita().getPrice() + getToppingHam().getPrice()+ getToppingPineaple().getPrice(), pizzaMargherita().getCalories()+ getToppingHam().getCalories()+ getToppingPineaple().getCalories(), toppings );
     }
     @Bean
@@ -61,18 +70,25 @@ public class BeansConf {
         return new Pizza("Salami Pizza", pizzaMargherita().getPrice() + getToppingSalami().getPrice(), pizzaMargherita().getCalories() + getToppingSalami().getCalories(),  toppings );
     }
     @Bean
-    public Pizza pizzaGenerate(Topping topping){
+    public Pizza pizzaDoubleCheese( ){
         List<Topping> toppings = new ArrayList<>();
         toppings.addAll(toppingMargherita());
-        toppings.add(topping);
-        return new Pizza("Pizza pazza", pizzaMargherita().getPrice() + topping.getPrice(), pizzaMargherita().getCalories() + topping.getCalories(), toppings );
+        toppings.add(getToppingCheese());
+        return new Pizza("Pizza doppio formaggio", pizzaMargherita().getPrice() + getToppingCheese().getPrice(), pizzaMargherita().getCalories() + 200, toppings );
+    }
+    @Bean
+    public Pizza pizzaOnion(){
+        List<Topping> topping = new ArrayList<>();
+        topping.addAll(toppingMargherita());
+        topping.add(getToppingOnion());
+        return new Pizza("Pizza Onion", pizzaMargherita().getPrice()+1.5, pizzaMargherita().getCalories() + 200, topping );
     }
     @Bean
     public Drinks Lemonade (){
         return new Drinks("Lemonade", 1.29, 128, 0.33);
     }
     @Bean
-     @Primary
+    @Primary
     public Drinks Water (){
         return new Drinks("Water", 1.29, 0,0.5);
     }
@@ -80,26 +96,31 @@ public class BeansConf {
     public Drinks Wine(){
         return new Drinks("Wine", 7.49,607,0.75 );
     }
-    @Bean
-    public Menu Menu (){
-        List<Pizza> pizzaList = new ArrayList<>();
-        pizzaList.add(pizzaMargherita());
-        pizzaList.add(pizzaHawaiana());
-        pizzaList.add(pizzaSalami());
-        pizzaList.add(pizzaGenerate(getToppingOnion()));
-        pizzaList.add(pizzaGenerate(getToppingCheese()));
-        List<Topping> toppings = new ArrayList<>();
-        toppings.add(getToppingSalami());
-        toppings.add(getToppingHam());
-        toppings.add(getToppingOnion());
-        toppings.add(getToppingPineaple());
-        toppings.add(getToppingCheese());
-        List<Drinks> drinksList = new ArrayList<>();
-        drinksList.add(Lemonade());
-        drinksList.add(Water());
-        drinksList.add(Wine());
-        return new Menu(pizzaList, toppings, drinksList );
-
-    }
-
+//    @Bean
+//    public Menu Menu (){
+//        List<Pizza> pizzaList = new ArrayList<>();
+//        pizzaList.add(pizzaMargherita());
+//        pizzaList.add(pizzaHawaiana());
+//        pizzaList.add(pizzaSalami());
+//        List<Topping> doublecheese = new ArrayList<>();
+//        doublecheese.addAll(toppingMargherita());
+//        doublecheese.add(getToppingCheese());
+//        List<Topping> onion = new ArrayList<>();
+//        onion.addAll(toppingMargherita());
+//        onion.add(getToppingOnion());
+//        pizzaList.add(pizzaDoubleCheese( doublecheese));
+//        pizzaList.add(pizzaOnion(onion));
+//        List<Topping> toppings = new ArrayList<>();
+//        toppings.add(getToppingSalami());
+//        toppings.add(getToppingHam());
+//        toppings.add(getToppingOnion());
+//        toppings.add(getToppingPineaple());
+//        toppings.add(getToppingCheese());
+//        List<Drinks> drinksList = new ArrayList<>();
+//        drinksList.add(Lemonade());
+//        drinksList.add(Water());
+//        drinksList.add(Wine());
+//        return new Menu(pizzaList, toppings, drinksList );
+//
+//    }
 }
